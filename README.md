@@ -1,5 +1,7 @@
 # Anchorme.js
 
+This modified version detects links and transforms them into Markdown instead of HTML. It also attempts to ignore links that are already inside Markdown link tags.
+
 [![Documentation](http://puu.sh/ukS4g/ccc520ade4.jpg)](http://alexcorvi.github.io/anchorme.js/)
 [Getting Started, Documentations, Demos and more](http://alexcorvi.github.io/anchorme.js/)
 
