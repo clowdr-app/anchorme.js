@@ -61,6 +61,23 @@ var list = function (input) {
             utils_1.isInsideAnchorTag(string, input, end)) {
             return "continue";
         }
+        // ### Markdown problem 1
+        /**
+         *  Checking whether the token is the content of an actual markdown tag
+         *  e.g. [my link text](https://something.com)
+         *  e.g. [https://something.com](https://something.com)
+         */
+        if (start >= 4
+            && input.charAt(start - 2) === "]"
+            && input.charAt(start - 1) === "("
+            && input.charAt(end) === ")") {
+            return "continue";
+        }
+        if (start >= 1
+            && input.charAt(start - 1) === "["
+            && input.charAt(end) === "]") {
+            return "continue";
+        }
         if (result[regex_1.iidxes.isURL]) {
             var path = (result[regex_1.iidxes.url.path] || "") +
                 (result[regex_1.iidxes.url.secondPartOfPath] || "") || undefined;

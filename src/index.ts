@@ -95,7 +95,27 @@ const list = function (input: string) {
 			isInsideAnchorTag(string, input, end)
 		) {
 			continue;
-		}
+        }
+        
+        // ### Markdown problem 1
+        /**
+         *  Checking whether the token is the content of an actual markdown tag
+         *  e.g. [my link text](https://something.com)
+         *  e.g. [https://something.com](https://something.com)
+         */
+        if (start >= 4
+            && input.charAt(start - 2) === "]"
+            && input.charAt(start - 1) === "("
+            && input.charAt(end) === ")"
+        ) {
+            continue;
+        }
+        if (start >= 1
+            && input.charAt(start - 1) === "["
+            && input.charAt(end) === "]"
+        ) {
+            continue;
+        }
 
 		if (result[iidxes.isURL]) {
 			const path =
