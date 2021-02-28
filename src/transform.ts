@@ -74,11 +74,7 @@ export function transform(
 		attributes = applyOption(input.string, input, options.attributes);
 	}
 
-	return `<a ${Object.keys(attributes)
-		.map((key) =>
-			attributes[key] === true ? key : `${key}="${attributes[key]}" `
-		)
-		.join(" ")}href="${protocol}${input.string}">${
+	return `[${
 		input.string.length > truncation
 			? truncateFromTheMiddle
 				? input.string.substring(0, Math.floor(truncation / 2)) +
@@ -89,5 +85,5 @@ export function transform(
 				  )
 				: input.string.substring(0, truncation) + "…"
 			: input.string
-	}</a>`;
+	}](${protocol}${input.string})`;
 }

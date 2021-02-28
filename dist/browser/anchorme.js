@@ -117,17 +117,13 @@
 	    if (options && options.attributes) {
 	        attributes = applyOption(input.string, input, options.attributes);
 	    }
-	    return "<a " + Object.keys(attributes)
-	        .map(function (key) {
-	        return attributes[key] === true ? key : key + "=\"" + attributes[key] + "\" ";
-	    })
-	        .join(" ") + "href=\"" + protocol + input.string + "\">" + (input.string.length > truncation
+	    return "[" + (input.string.length > truncation
 	        ? truncateFromTheMiddle
 	            ? input.string.substring(0, Math.floor(truncation / 2)) +
 	                "…" +
 	                input.string.substring(input.string.length - Math.ceil(truncation / 2), input.string.length)
 	            : input.string.substring(0, truncation) + "…"
-	        : input.string) + "</a>";
+	        : input.string) + "](" + protocol + input.string + ")";
 	}
 	exports.transform = transform;
 	});
@@ -382,6 +378,7 @@
 	                path: result[regex.iidxes.url.byProtocol] ? undefined : path,
 	                query: result[regex.iidxes.url.query] || undefined,
 	                fragment: result[regex.iidxes.url.fragment] || undefined,
+	                reason: "url",
 	            });
 	        }
 	        else if (result[regex.iidxes.isFile]) {
@@ -395,6 +392,7 @@
 	                filename: result[regex.iidxes.file.fileName],
 	                filePath: filePath,
 	                fileDirectory: filePath.substr(0, filePath.length - result[regex.iidxes.file.fileName].length),
+	                reason: "file",
 	            });
 	        }
 	        else if (result[regex.iidxes.isEmail]) {
@@ -406,6 +404,7 @@
 	                local: result[regex.iidxes.email.local],
 	                protocol: result[regex.iidxes.email.protocol],
 	                host: result[regex.iidxes.email.host],
+	                reason: "email",
 	            });
 	        }
 	        else {
@@ -413,6 +412,7 @@
 	                start: start,
 	                end: end,
 	                string: string,
+	                reason: "unknown",
 	            });
 	        }
 	    };
